@@ -1,15 +1,15 @@
 import axios from "axios";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 // import MyProfile from "../components/MyProfile";
 import NavBar from "../components/NavBar";
 import RightBar from "../components/RightBar";
 import Share from "../components/Share";
 import SideBar from "../components/SideBar";
-import {useParams} from "react-router"
+import { useParams } from "react-router";
 function Profile() {
   const [user, setUser] = useState({});
-const  username= useParams().username
+  const username = useParams().username;
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
@@ -31,15 +31,21 @@ const  username= useParams().username
                 <img
                   className="profileCoverImg"
                   src={
-                    // user.coverPicture ||
-                     PF + "defaultcoverimage.jfif"}
+                    user.coverPicture
+                      ? PF + user.coverPicture
+                      : PF + "defaultcoverimage.jfif"
+                  }
+                  crossorigin="anonymous"
                   alt="profile"
                 />
                 <img
                   className="profileUserImg"
                   src={
-                    // user.profilePicture || 
-                    PF + "defaultprofileimage.png"}
+                    user.profilePicture
+                      ? PF + user.profilePicture
+                      : PF + "defaultprofileimage.png"
+                  }
+                  crossorigin="anonymous"
                   alt="profile2"
                 />
               </div>
@@ -51,7 +57,7 @@ const  username= useParams().username
           </div>
 
           <div className="myProfile">
-            <Share/>
+            <Share />
           </div>
         </MyProfileStyled>{" "}
         <RightBar user={user} />

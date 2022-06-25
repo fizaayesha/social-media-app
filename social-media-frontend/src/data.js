@@ -42,7 +42,7 @@ export const UserData = [
   },
   {
     id: 9,
-    profilePicture: "tech Women.png",
+    profilePicture: "orprofile.webp",
     username: "Sajal Sao",
   },
   {

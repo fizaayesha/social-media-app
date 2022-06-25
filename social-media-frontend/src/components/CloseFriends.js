@@ -11,6 +11,7 @@ function CloseFriends({ user }) {
             src={PF + user.profilePicture}
             alt="profile"
             className="rightProfileImage"
+            crossorigin="anonymous"
           />
         </div>
         <span className="rightbarUsername">

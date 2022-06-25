@@ -47,6 +47,7 @@ function RightBar({ user }) {
               className="rightBarFollowingImage"
               src={`${PF}orprofile.webp`}
               alt="profile"
+              crossorigin="anonymous"
             />
             <span className="rightBarFollowingName">Fiza Khan</span>
           </div>
@@ -54,6 +55,25 @@ function RightBar({ user }) {
             <img
               className="rightBarFollowingImage"
               src={`${PF}orprofile.webp`}
+              alt="profile"
+              crossorigin="anonymous"
+            />
+            <span className="rightBarFollowingName">Fiza Khan</span>
+          </div>
+          <div className="rightBarFollowing">
+            <img
+              className="rightBarFollowingImage"
+              src={`${PF}orprofile.webp`}
+              alt="profile"
+              crossorigin="anonymous"
+            />
+            <span className="rightBarFollowingName">Fiza Khan</span>
+          </div>
+          <div className="rightBarFollowing">
+            <img
+              className="rightBarFollowingImage"
+              src={`${PF}orprofile.webp`}
+              crossorigin="anonymous"
               alt="profile"
             />
             <span className="rightBarFollowingName">Fiza Khan</span>
@@ -63,6 +83,7 @@ function RightBar({ user }) {
               className="rightBarFollowingImage"
               src={`${PF}orprofile.webp`}
               alt="profile"
+              crossorigin="anonymous"
             />
             <span className="rightBarFollowingName">Fiza Khan</span>
           </div>
@@ -71,6 +92,7 @@ function RightBar({ user }) {
               className="rightBarFollowingImage"
               src={`${PF}orprofile.webp`}
               alt="profile"
+              crossorigin="anonymous"
             />
             <span className="rightBarFollowingName">Fiza Khan</span>
           </div>
@@ -79,6 +101,7 @@ function RightBar({ user }) {
               className="rightBarFollowingImage"
               src={`${PF}orprofile.webp`}
               alt="profile"
+              crossorigin="anonymous"
             />
             <span className="rightBarFollowingName">Fiza Khan</span>
           </div>
@@ -87,6 +110,7 @@ function RightBar({ user }) {
               className="rightBarFollowingImage"
               src={`${PF}orprofile.webp`}
               alt="profile"
+              crossorigin="anonymous"
             />
             <span className="rightBarFollowingName">Fiza Khan</span>
           </div>
@@ -95,22 +119,7 @@ function RightBar({ user }) {
               className="rightBarFollowingImage"
               src={`${PF}orprofile.webp`}
               alt="profile"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
+              crossorigin="anonymous"
             />
             <span className="rightBarFollowingName">Fiza Khan</span>
           </div>

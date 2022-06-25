@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Home } from "@material-ui/icons";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
@@ -6,7 +6,10 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import MessageIcon from "@material-ui/icons/Message";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 function NavBar() {
+  const { user } = useContext(AuthContext);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <NavBarStyled>
       <div className="topbar">
@@ -21,12 +24,26 @@ function NavBar() {
         </div>
         <div className="right">
           <div className="icons">
-            <Home /> <p>1</p>
+            <Link to="/">
+            <Home />
+            </Link>
+             <p>1</p>
             <MessageIcon />
             <p>3</p>
             <FavoriteBorderIcon />
             <p>4</p>
-            <AccountCircleOutlinedIcon />
+            <Link to={`/profile/${user.username}`}>
+              <img
+                src={
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "defaultprofileimage.png"
+                }
+                alt=""
+                className="profilePicture"
+                crossorigin="anonymous"
+              />
+            </Link>
             <p>9</p>
           </div>
         </div>
@@ -58,7 +75,6 @@ const NavBarStyled = styled.div`
         margin-left: 10px;
         text-decoration: none;
         color: black;
-        
       }
     }
     .middle {
@@ -112,6 +128,19 @@ const NavBarStyled = styled.div`
           @media screen and (max-width: 596px) {
             margin-right: 10px;
             font-size: 1.2rem;
+          }
+        }
+        img {
+          width: 1.2rem;
+          cursor: pointer;
+          margin-right: 15px;
+          height: 1.2rem;
+          border-radius: 50%;
+          border: 2px solid grey;
+          @media screen and (max-width: 596px) {
+            margin-right: 10px;
+            width: 1.2rem;
+            height: 1.2rem;
           }
         }
         .defineColor {

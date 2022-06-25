@@ -1,30 +1,58 @@
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
-import React from "react";
+import axios from "axios";
+import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../context/AuthContext";
 function Share() {
+  const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const desc = useRef();
+  const [file, setFile] = useState(null);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const newPost = {
+      userId: user._id,
+      desc: desc.current.value,
+    };
+    try {
+      await axios.post("/posts", newPost);
+    } catch (error) {}
+  };
   return (
     <ShareStyled>
       <div className="shareWrapper">
         <div className="shareTop">
           <img
             className="shareProfileImg"
-            src={`${PF}orprofile.webp`}
+            src={
+              user.profilePicture
+                ? PF + user.profilePicture
+                : PF + "defaultprofileimage.png"
+            }
             alt="profile"
+            crossorigin="anonymous"
           />
           <input
-            placeholder="What is in your mind Ayesha"
+            placeholder={user.username + " you can start posting from here"}
             className="shareInput"
+            ref={desc}
           />
         </div>
         <hr className="shareHr" />
-        <div className="shareButton">
+        <form className="shareButton" onSubmit={submitHandler}>
           <div className="shareOptions">
-            <div className="shareOption">
+            <label htmlFor="file" className="shareOption">
               <PermMedia htmlColor="tomato" className="shareIcon" />
               <span className="shareOptionText">Photo or Video</span>
-            </div>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                id="file"
+                accept=".png,.jpeg,.jpg,.svg"
+                onChange={(e) => setFile(e.target.file[0])}
+              />
+            </label>
             <div className="shareOption">
               <Label htmlColor="blue" className="shareIcon" />
               <span className="shareOptionText">Tag</span>
@@ -38,8 +66,10 @@ function Share() {
               <span className="shareOptionText">Expressions</span>
             </div>
           </div>
-          <button className="shareshareButton">Post</button>
-        </div>
+          <button className="shareshareButton" type="submit">
+            Post
+          </button>
+        </form>
       </div>
     </ShareStyled>
   );
@@ -61,6 +91,7 @@ const ShareStyled = styled.div`
         height: 50px;
         border-radius: 50%;
         object-fit: cover;
+        border: 2px solid lightgray;
         margin-right: 10px;
       }
       .shareInput {
@@ -101,7 +132,7 @@ const ShareStyled = styled.div`
             font-size: 1rem;
             font-weight: bolder;
             @media screen and (max-width: 585px) {
-              font-size: .7rem;
+              font-size: 0.7rem;
             }
           }
         }

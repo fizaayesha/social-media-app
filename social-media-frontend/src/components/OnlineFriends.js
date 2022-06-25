@@ -11,6 +11,7 @@ function OnlineFriends({ user }) {
             src={PF + user.profilePicture}
             alt="profile"
             className="rightProfileImage"
+            crossorigin="anonymous"
           />
           <span className="rightBarOnline"></span>
         </div>

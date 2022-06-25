@@ -1,22 +1,74 @@
 // import { Link } from "react-router-dom";
+import { CircularProgress } from "@material-ui/core";
+import axios from "axios";
+import { useContext, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { loginCall } from "../apiCalls";
+import { AuthContext } from "../context/AuthContext";
 
 function Register() {
+  const loading = <CircularProgress />;
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+  const confirmPassword = useRef();
+  const history = useHistory();
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (confirmPassword.current.value !== password.current.value) {
+      confirmPassword.current.setCustomValidity("Password don't match");
+    } else {
+      const user = {
+        username: username.current.value,
+        email: email.current.value,
+        password: password.current.value,
+        // confirmPassword: confirmPassword.current.value,
+      };
+      try {
+        await axios.post("/auth/register", user);
+        history.push("/login");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   return (
     <>
       <RegisterStyled>
-        <form>
+        <form onSubmit={handleClick}>
           <div className="brand">
             <img src="Assets/orprofile.webp" alt="" />
             <h1>Chat App</h1>
           </div>
-          <input type="text" placeholder="Username" name="username" min="3" />
-          <input type="email" placeholder="Email" name="email" />
-          <input type="password" placeholder="Password" name="password" />
+          <input
+            type="text"
+            placeholder="Username"
+            required
+            name="username"
+            min="3"
+            ref={username}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            name="email"
+            ref={email}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            name="password"
+            ref={password}
+            minLength="5"
+          />
           <input
             type="password"
             placeholder="Confirm Password"
             name="password"
+            ref={confirmPassword}
           />
           <button type="submit">Register</button>
           <span>Create new Account ?</span>

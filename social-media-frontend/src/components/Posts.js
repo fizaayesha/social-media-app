@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { MoreVert, Favorite } from "@material-ui/icons";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
+import { AuthContext } from "../context/AuthContext";
 function Posts({ post }) {
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { user: currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currentUser._id));
+  }, [currentUser._id, post.likes]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +25,9 @@ function Posts({ post }) {
   }, [post.userId]);
 
   const likeHandler = () => {
+    try {
+      axios.put("/posts/" + post._id + "/like", { userId: currentUser._id });
+    } catch (error) {}
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
@@ -32,9 +41,12 @@ function Posts({ post }) {
               <img
                 className="postProfileImg"
                 src={
-                  // user.profilePicture ||
-                   PF + "defaultprofileimage.png"}
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "defaultprofileimage.png"
+                }
                 alt="profile"
+                crossorigin="anonymous"
               />
             </Link>
             <span className="postUsername">{user.username}</span>
@@ -47,7 +59,12 @@ function Posts({ post }) {
         <br></br>
         <hr />
         <div className="postCenter">
-          <img src={PF + post.image} className="postImage" alt="" />
+          <img
+            src={PF + post.image}
+            className="postImage"
+            alt=""
+            crossorigin="anonymous"
+          />
           <span className="postText">{post?.desc}</span>
         </div>
         <div className="postBottom">

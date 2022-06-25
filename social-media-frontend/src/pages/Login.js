@@ -2,18 +2,22 @@
 import React, { useContext, useRef } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
-import { loginCall } from "./apiCalls";
+import { loginCall } from "../apiCalls";
+import { CircularProgress } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 function Login() {
+  const loading = <CircularProgress />;
   const username = useRef();
   const password = useRef();
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
+  const history = useHistory();
   const handleClick = (e) => {
     e.preventDefault();
     loginCall(
       { username: username.current.value, password: password.current.value },
       dispatch
     );
-    // console.log(username);
+    history.push("/");
   };
   console.log(user);
   return (
@@ -40,7 +44,17 @@ function Login() {
             minLength="5"
             ref={password}
           />
-          <button type="submit">Login</button>
+          <button type="submit">
+            {isFetching ? (
+              <CircularProgress
+                color="white"
+                size="20px"
+                disabled={isFetching}
+              />
+            ) : (
+              "Login"
+            )}
+          </button>
           <span>Create new Account ?</span>
         </form>
       </LoginStyled>
@@ -106,13 +120,16 @@ const LoginStyled = styled.div`
       &:hover {
         background-color: grey;
       }
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
     span {
-      color: white;
+      color: black;
+      font-weight: bolder;
       * {
         color: #4e0eff;
         text-transform: none;
-        font-weight: bold;
       }
     }
   }

@@ -35,7 +35,7 @@ function Profile() {
                       ? PF + user.coverPicture
                       : PF + "defaultcoverimage.jfif"
                   }
-                  crossorigin="anonymous"
+                  crossOrigin="anonymous"
                   alt="profile"
                 />
                 <img
@@ -45,7 +45,7 @@ function Profile() {
                       ? PF + user.profilePicture
                       : PF + "defaultprofileimage.png"
                   }
-                  crossorigin="anonymous"
+                  crossOrigin="anonymous"
                   alt="profile2"
                 />
               </div>

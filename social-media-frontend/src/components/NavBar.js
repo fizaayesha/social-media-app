@@ -41,7 +41,7 @@ function NavBar() {
                 }
                 alt=""
                 className="profilePicture"
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
               />
             </Link>
             <p>9</p>

@@ -7,7 +7,7 @@ function Share() {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
-  const [file, setFile] = useState(null);
+  const [allFiles, setAllFiles] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ function Share() {
                 : PF + "defaultprofileimage.png"
             }
             alt="profile"
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
           />
           <input
             placeholder={user.username + " you can start posting from here"}
@@ -49,8 +49,9 @@ function Share() {
                 style={{ display: "none" }}
                 type="file"
                 id="file"
-                accept=".png,.jpeg,.jpg,.svg"
-                onChange={(e) => setFile(e.target.file[0])}
+                accept=".png,.jpeg,.jpg"
+                name="upfile"
+                onChange={(e) => setAllFiles(e.target.allFiles[0])}
               />
             </label>
             <div className="shareOption">

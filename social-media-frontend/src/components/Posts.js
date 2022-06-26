@@ -46,7 +46,7 @@ function Posts({ post }) {
                     : PF + "defaultprofileimage.png"
                 }
                 alt="profile"
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
               />
             </Link>
             <span className="postUsername">{user.username}</span>
@@ -63,7 +63,7 @@ function Posts({ post }) {
             src={PF + post.image}
             className="postImage"
             alt=""
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
           />
           <span className="postText">{post?.desc}</span>
         </div>

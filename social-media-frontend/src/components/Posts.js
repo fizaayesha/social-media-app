@@ -18,7 +18,12 @@ function Posts({ post }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`/users?userId=${post.userId}`);
+      const res = await axios.get(`/users?userId=${post.userId}`,{
+        mode: "no-cors", 
+        headers: {
+          "Allow-Control-Allow-Origin": "*",
+        },
+      });
       setUser(res.data);
     };
     fetchData();

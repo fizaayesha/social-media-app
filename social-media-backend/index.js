@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-app.post("/api/upload",upload.single("file"), (req, res) => {
+app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
     return res.status(200).json("File uploaded successfully");
   } catch (error) {
@@ -39,7 +39,7 @@ app.post("/api/upload",upload.single("file"), (req, res) => {
 mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true }, () => {
   console.log("Connection established Successfully");
 });
-app.use("/images", express.static(path.join(__dirname,"public/images")))
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);

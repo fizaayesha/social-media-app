@@ -7,7 +7,7 @@ function Share() {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
-  const [allFiles, setAllFiles] = useState(null);
+  const [file, setFile] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -15,8 +15,21 @@ function Share() {
       userId: user._id,
       desc: desc.current.value,
     };
+    if (file) {
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("file", file);
+      data.append("name", fileName);
+      newPost.image = fileName;
+      try {
+        await axios.post("/upload", data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     try {
       await axios.post("/posts", newPost);
+      window.location.reload();
     } catch (error) {}
   };
   return (
@@ -50,8 +63,8 @@ function Share() {
                 type="file"
                 id="file"
                 accept=".png,.jpeg,.jpg"
-                name="upfile"
-                onChange={(e) => setAllFiles(e.target.allFiles[0])}
+                name="file"
+                onChange={(e) => setFile(e.target.file[0])}
               />
             </label>
             <div className="shareOption">

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
 import { loginCall } from "../apiCalls";
 import { CircularProgress } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 function Login() {
   const loading = <CircularProgress />;
   const username = useRef();
@@ -25,7 +25,7 @@ function Login() {
       <LoginStyled>
         <form onSubmit={handleClick}>
           <div className="brand">
-            <img src="Assets/orprofile.webp" alt="" />
+            <img src="assets/logo.svg" alt="" />
             <h1>Chat App</h1>
           </div>
           <input
@@ -55,7 +55,9 @@ function Login() {
               "Login"
             )}
           </button>
-          <span>Create new Account ?</span>
+          <span>
+            Create new Account ?<Link to="/register">Register</Link>
+          </span>
         </form>
       </LoginStyled>
     </>
@@ -77,7 +79,7 @@ const LoginStyled = styled.div`
     gap: 1rem;
     justify-content: center;
     img {
-      height: 4.5rem;
+      height: 3rem;
     }
     h1 {
       color: black;
@@ -127,10 +129,6 @@ const LoginStyled = styled.div`
     span {
       color: black;
       font-weight: bolder;
-      * {
-        color: #4e0eff;
-        text-transform: none;
-      }
     }
   }
 `;

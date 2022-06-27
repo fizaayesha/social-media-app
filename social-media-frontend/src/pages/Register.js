@@ -2,7 +2,7 @@
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 import { useContext, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { loginCall } from "../apiCalls";
 import { AuthContext } from "../context/AuthContext";
@@ -38,7 +38,7 @@ function Register() {
       <RegisterStyled>
         <form onSubmit={handleClick}>
           <div className="brand">
-            <img src="Assets/orprofile.webp" alt="" />
+            <img src="assets/logo.svg" alt="" />
             <h1>Chat App</h1>
           </div>
           <input
@@ -71,7 +71,9 @@ function Register() {
             ref={confirmPassword}
           />
           <button type="submit">Register</button>
-          <span>Create new Account ?</span>
+          <span>
+            Already have an account ? <Link to="/login">Login</Link>
+          </span>
         </form>
       </RegisterStyled>
     </>
@@ -93,7 +95,7 @@ const RegisterStyled = styled.div`
     gap: 1rem;
     justify-content: center;
     img {
-      height: 4.5rem;
+      height: 3rem;
     }
     h1 {
       color: black;
@@ -139,12 +141,8 @@ const RegisterStyled = styled.div`
       }
     }
     span {
-      color: white;
-      * {
-        color: #4e0eff;
-        text-transform: none;
-        font-weight: bold;
-      }
+      color: black;
+      font-weight: bolder;
     }
   }
 `;

@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 import RightBar from "../components/RightBar";
 import Share from "../components/Share";
 import SideBar from "../components/SideBar";
+import Feed from "../components/Feed";
 import { useParams } from "react-router";
 function Profile() {
   const [user, setUser] = useState({});
@@ -14,7 +15,15 @@ function Profile() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`/users?username=${username}`);
+      const res = await axios.get(`/users?username=${username}`, {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "content-type": "application/x-www-form-urlencoded",
+          "Access-Control-Allow-Credentials": "true",
+        },
+      });
       setUser(res.data);
     };
     fetchData();
@@ -59,7 +68,7 @@ function Profile() {
           <div className="myProfile">
             <Share />
           </div>
-        </MyProfileStyled>{" "}
+        </MyProfileStyled>
         <RightBar user={user} />
       </ProfileStyled>
     </>

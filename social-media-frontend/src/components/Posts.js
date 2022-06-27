@@ -18,10 +18,13 @@ function Posts({ post }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`/users?userId=${post.userId}`,{
-        mode: "no-cors", 
+      const res = await axios.get(`/users?userId=${post.userId}`, {
+        method: "GET",
         headers: {
-          "Allow-Control-Allow-Origin": "*",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "content-type": "application/x-www-form-urlencoded",
+          "Access-Control-Allow-Credentials": "true",
         },
       });
       setUser(res.data);

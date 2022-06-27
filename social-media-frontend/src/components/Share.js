@@ -22,13 +22,33 @@ function Share() {
       data.append("name", fileName);
       newPost.image = fileName;
       try {
-        await axios.post("/upload", data);
+        await axios.post("/upload", data
+        // , {
+        //   method: "POST",
+        //   headers: {
+        //     accept: "application/json",
+        //     "Access-Control-Allow-Origin": "*",
+        //     "content-type": "application/x-www-form-urlencoded",
+        //     "Access-Control-Allow-Credentials": "true",
+        //   },
+        // }
+        );
       } catch (error) {
         console.log(error);
       }
     }
     try {
-      await axios.post("/posts", newPost);
+      await axios.post("/posts", newPost
+      // , {
+      //   method: "POST",
+      //   headers: {
+      //     accept: "application/json",
+      //     "Access-Control-Allow-Origin": "*",
+      //     "content-type": "application/x-www-form-urlencoded",
+      //     "Access-Control-Allow-Credentials": "true",
+      //   },
+      // }
+      );
       window.location.reload();
     } catch (error) {}
   };

@@ -11,8 +11,24 @@ function Feed({ username }) {
   useEffect(() => {
     const fetchData = async () => {
       const res = username
-        ? await axios.get("/posts/profile/" + username)
-        : await axios.get("posts/timeline/" + user._id);
+        ? await axios.get("/posts/profile/" + username, {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "content-type": "application/x-www-form-urlencoded",
+              "Access-Control-Allow-Credentials": "true",
+            },
+          })
+        : await axios.get("posts/timeline/" + user._id, {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "content-type": "application/x-www-form-urlencoded",
+              "Access-Control-Allow-Credentials": "true",
+            },
+          });
       setPosts(
         res.data.sort((p1, p2) => {
           return new Date(p2.createdAt) - new Date(p1.createdAt);

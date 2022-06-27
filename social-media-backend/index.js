@@ -4,7 +4,10 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
+const cors = require("cors");
+
 const app = express();
+app.use(cors());
 const port = 5000;
 const localhost = "localhost";
 app.use(express.json());

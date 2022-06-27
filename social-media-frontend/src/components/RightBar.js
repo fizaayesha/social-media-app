@@ -1,9 +1,52 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UserData } from "../data";
 import OnlineFriends from "./OnlineFriends";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { Add, Remove } from "@material-ui/icons";
+
+// import { Add } from "@material-ui/icons";
 function RightBar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friends, setFriends] = useState([]);
+  const { user: currentUser, dispatch } = useContext(AuthContext);
+  const [followed, setFollowed] = useState(currentUser.followings.includes(user?.id));
+
+  // useEffect(() => {
+  //   setFollowed(currentUser.followings.includes(user?.id));
+  // }, [currentUser, user.id]);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get("/users/friends/" + user._id);
+        setFriends(friendList.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFriends();
+  }, [user]);
+  const followHandler = async () => {
+    try {
+      if (followed) {
+        await axios.put("/users/" + user._id + "/follow", {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "UNFOLLOW", payload: user._id });
+      } else {
+        await axios.put("/users/" + user._id + "/unfollow", {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "FOLLOW", payload: user._id });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setFollowed(!followed);
+  };
   const HomeRightBar = () => {
     return (
       <>
@@ -19,6 +62,12 @@ function RightBar({ user }) {
   const ProfileRightBar = () => {
     return (
       <>
+        {user.username !== currentUser.username && (
+          <button className="followButton" onClick={followHandler}>
+            {followed ? "Unfollow" : "Follow"}
+            {followed ? <Remove /> : <Add />}
+          </button>
+        )}
         <h4 className="rightBarTitle">My Profile</h4>
         <div className="rightBarInfo">
           <div className="rightBarInfoItem">
@@ -42,87 +91,23 @@ function RightBar({ user }) {
         </div>
         <h4 className="rightBarTitle">Friend List</h4>
         <div className="rightBarFollowings">
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              crossOrigin="anonymous"
-              alt="profile"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
-          <div className="rightBarFollowing">
-            <img
-              className="rightBarFollowingImage"
-              src={`${PF}orprofile.webp`}
-              alt="profile"
-              crossOrigin="anonymous"
-            />
-            <span className="rightBarFollowingName">Fiza Khan</span>
-          </div>
+          {friends.map((friend) => (
+            <div className="rightBarFollowing">
+              <Link to={"/profile/" + friend.username}>
+                <img
+                  className="rightBarFollowingImage"
+                  src={
+                    friend.profilePicture
+                      ? PF + friend.profilePicture
+                      : PF + "defaultprofileimage.png"
+                  }
+                  alt="profile"
+                  crossOrigin="anonymous"
+                />
+              </Link>
+              <span className="rightBarFollowingName">{friend.username}</span>
+            </div>
+          ))}
         </div>
       </>
     );
@@ -140,6 +125,22 @@ const RightBarStyled = styled.div`
   margin-right: 0%;
   @media screen and (max-width: 885px) {
     display: none;
+  }
+  .followButton {
+    background-color: green;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-weight: bolder;
+    padding: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: darkgreen;
+    }
+    svg {
+      font-size: 1rem;
+    }
   }
   .rightWrapper {
     padding: 20px 20px 0 0;

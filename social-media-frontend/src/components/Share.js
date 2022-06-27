@@ -1,4 +1,10 @@
-import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
+import {
+  PermMedia,
+  Label,
+  Room,
+  EmojiEmotions,
+  Cancel,
+} from "@material-ui/icons";
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
@@ -22,33 +28,13 @@ function Share() {
       data.append("name", fileName);
       newPost.image = fileName;
       try {
-        await axios.post("/upload", data
-        // , {
-        //   method: "POST",
-        //   headers: {
-        //     accept: "application/json",
-        //     "Access-Control-Allow-Origin": "*",
-        //     "content-type": "application/x-www-form-urlencoded",
-        //     "Access-Control-Allow-Credentials": "true",
-        //   },
-        // }
-        );
+        await axios.post("/upload", data);
       } catch (error) {
         console.log(error);
       }
     }
     try {
-      await axios.post("/posts", newPost
-      // , {
-      //   method: "POST",
-      //   headers: {
-      //     accept: "application/json",
-      //     "Access-Control-Allow-Origin": "*",
-      //     "content-type": "application/x-www-form-urlencoded",
-      //     "Access-Control-Allow-Credentials": "true",
-      //   },
-      // }
-      );
+      await axios.post("/posts", newPost);
       window.location.reload();
     } catch (error) {}
   };
@@ -73,6 +59,19 @@ function Share() {
           />
         </div>
         <hr className="shareHr" />
+        {file && (
+          <div className="shareImageContainer">
+            <img
+              src={URL.createObjectURL(file)}
+              alt=""
+              className="shareImage"
+            />
+            <Cancel
+              className="shareCancelImage"
+              onClick={() => setFile(null)}
+            />
+          </div>
+        )}
         <form className="shareButton" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
@@ -138,6 +137,19 @@ const ShareStyled = styled.div`
     }
     .shareHr {
       margin: 20px;
+    }
+    .shareImageContainer {
+      padding: 0 20px 10px 20px;
+      position: relative;
+      .shareImage {
+        width: 100%;
+        object-fit: cover;
+      }
+      .shareCancelImage {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
     }
     .shareButton {
       display: flex;

@@ -15,7 +15,7 @@ function NavBar() {
       <div className="topbar">
         <div className="left">
           <Link to="/">
-            <p className="logo">Instagram</p>
+            <p className="logo">Social Media App</p>
           </Link>
         </div>
         <div className="middle">
@@ -25,9 +25,9 @@ function NavBar() {
         <div className="right">
           <div className="icons">
             <Link to="/">
-            <Home />
+              <Home />
             </Link>
-             <p>1</p>
+            <p>1</p>
             <MessageIcon />
             <p>3</p>
             <FavoriteBorderIcon />
@@ -71,7 +71,7 @@ const NavBarStyled = styled.div`
       @media screen and (max-width: 596px) {
         font-size: 1.2rem;
       }
-      .logo {
+      p {
         margin-left: 10px;
         text-decoration: none;
         color: black;

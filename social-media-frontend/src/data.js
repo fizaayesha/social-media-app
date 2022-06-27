@@ -1,3 +1,4 @@
+
 export const UserData = [
   {
     id: 1,
@@ -141,5 +142,37 @@ export const PostData = [
     userId: 10,
     likes: 43,
     comment: 5,
+  },
+];
+export const MenuData = [
+  {
+    id: 1,
+    logo: "orprofile.webp",
+    text: "Feed",
+    link: "/",
+  },
+  {
+    id: 2,
+    logo: "chat.png",
+    text: "Chats",
+    link: "/",
+  },
+  {
+    id: 3,
+    logo: "posts.png",
+    text: "My Posts",
+    link: "/myposts",
+  },
+  {
+    id: 4,
+    logo: "groups.png",
+    text: "Groups",
+    link: "/",
+  },
+  {
+    id: 5,
+    logo: "bookmark.png",
+    text: "Bookmarks",
+    link: "/",
   },
 ];

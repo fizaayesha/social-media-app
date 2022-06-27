@@ -11,7 +11,7 @@ function Home() {
       <NavBar />
       <HomeStyled>
         <SideBar />
-        <Feed username="Aliya" />
+        <Feed />
         <RightBar profile />
       </HomeStyled>
     </>

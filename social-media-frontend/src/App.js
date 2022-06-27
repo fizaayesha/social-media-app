@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import MyPosts from "./pages/MyPosts";
 import styled from "styled-components";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -23,6 +24,9 @@ function App() {
           <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
           <Route path="/profile/:username">
             <Profile />
+          </Route>
+          <Route path="/myposts">
+            <MyPosts />
           </Route>
         </Switch>
       </BrowserRouter>

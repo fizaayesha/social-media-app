@@ -18,15 +18,7 @@ function Posts({ post }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`/users?userId=${post.userId}`, {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "content-type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Credentials": "true",
-        },
-      });
+      const res = await axios.get(`/users?userId=${post.userId}`);
       setUser(res.data);
     };
     fetchData();
@@ -45,7 +37,7 @@ function Posts({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`profile/${user.username}`}>
+            <Link to={`/profile/${user.username}`}>
               <img
                 className="postProfileImg"
                 src={

@@ -1,41 +1,11 @@
 import React, { useState } from "react";
 import "./SideBar.css";
-import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
-import MessageIcon from "@material-ui/icons/Message";
-import GroupIcon from "@material-ui/icons/Group";
-import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import { UserData } from "../data";
+import { UserData, MenuData } from "../data";
 import CloseFriends from "./CloseFriends";
+import MenuBar from "./MenuBar";
 const SideBar = () => {
-  const feed = <DynamicFeedIcon />;
-  const msg = <MessageIcon />;
-  const videos = <VideoLibraryIcon />;
-  const group = <GroupIcon />;
-  const bmark = <BookmarkIcon />;
   const [isExpanded, setExpendState] = useState(false);
-  const menuItems1 = [
-    {
-      logo: feed,
-      text: "Feed",
-    },
-    {
-      logo: msg,
-      text: "Chats",
-    },
-    {
-      logo: videos,
-      text: "Videos",
-    },
-    {
-      logo: group,
-      text: "Groups",
-    },
-    {
-      logo: bmark,
-      text: "Bookmarks",
-    },
-  ];
+  
   return (
     <div
       className={
@@ -63,15 +33,9 @@ const SideBar = () => {
           </button>
         </div>
         <div className="nav-menu">
-          {menuItems1.map(({ logo, text }) => (
+        {MenuData.map((p) => (
             <p className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}>
-              {isExpanded && (
-                <li>
-                  {logo}
-                  {text}
-                  <div className="hori"></div>
-                </li>
-              )}
+              {isExpanded && <MenuBar key={p._id} user={p} />}
             </p>
           ))}
           <div className="friendList">

@@ -22,6 +22,8 @@ app.use(morgan("common"));
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+const convoRoute = require("./routes/conversations");
+const msgRoute = require("./routes/messages");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/images");
@@ -46,6 +48,8 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
+app.use("/api/conversations", convoRoute);
+app.use("/api/messages", msgRoute);
 
 app.listen(port, localhost, (req, res) => {
   console.log(`SERVER RUNNING ON http://${localhost}:${port}`);

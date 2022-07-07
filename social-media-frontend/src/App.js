@@ -8,6 +8,7 @@ import MyPosts from "./pages/MyPosts";
 import styled from "styled-components";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import Messenger from "./pages/Messenger";
 function App() {
   const { user } = useContext(AuthContext);
 
@@ -22,6 +23,7 @@ function App() {
             {user ? <Redirect to="/" /> : <Register />}
           </Route>
           <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+          <Route path="/chat">{!user ? <Redirect to="/" /> : <Messenger />}</Route>
           <Route path="/profile/:username">
             <Profile />
           </Route>

@@ -28,7 +28,9 @@ function NavBar() {
               <Home />
             </Link>
             <p>1</p>
-            <MessageIcon />
+            <Link to="/chat">
+              <MessageIcon />
+            </Link>
             <p>3</p>
             <FavoriteBorderIcon />
             <p>4</p>
